@@ -1,5 +1,10 @@
 # create-waf-stack
 
+[![CI](https://github.com/david-jerry/create-waf-stack/actions/workflows/ci.yml/badge.svg)](https://github.com/david-jerry/create-waf-stack/actions/workflows/ci.yml)
+[![Publish](https://github.com/david-jerry/create-waf-stack/actions/workflows/publish.yml/badge.svg)](https://github.com/david-jerry/create-waf-stack/actions/workflows/publish.yml)
+[![Release](https://img.shields.io/github/v/release/david-jerry/create-waf-stack?sort=semver)](https://github.com/david-jerry/create-waf-stack/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 A `create-next-app`-style generator for a **Well-Architected Next.js 16 full-stack app**. It always installs the **latest** versions (framework via `create-next-app@latest`, every library via `@latest`), lays down the folder structure, and overlays the architecture skeleton — so you start from a wired-up stack instead of empty folders.
 
 **What you get:** Next.js 16 (App Router, RSC-first) · React 19 · Tailwind 4 + shadcn/ui · Drizzle ORM + Postgres (Neon in prod) · Upstash Redis (tag-based cache) · better-auth (RBAC, minimal tables) · Inngest (background jobs) · Cloudinary (signed uploads) · Resend (email) · Winston · centralized env with fail-fast secrets · server-action guards · response envelope · route-group layouts with error/loading states · a portable `CLAUDE.md` architecture contract.
