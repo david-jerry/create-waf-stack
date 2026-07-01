@@ -1,0 +1,33 @@
+# ── App ──────────────────────────────────────────────────────────────────────
+BASE_URL=http://localhost:3000
+# Comma-separated origins better-auth will trust (prod: your domain(s))
+# TRUSTED_ORIGINS=https://example.com
+
+# ── Database (Postgres / Neon) ───────────────────────────────────────────────
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/{{APP_SLUG}}?schema=public
+
+# ── Cache (Upstash Redis, optional — cache no-ops if unset) ──────────────────
+UPSTASH_REDIS_REST_URL=
+UPSTASH_REDIS_REST_TOKEN=
+
+# ── Media (Cloudinary) ───────────────────────────────────────────────────────
+NEXT_PUBLIC_CLOUDINARY_NAME=
+NEXT_PUBLIC_CLOUDINARY_API=
+CLOUDINARY_SECRET=
+
+# ── Email (Resend) ───────────────────────────────────────────────────────────
+RESEND_API_KEY=
+# Must be on a domain verified in Resend. Default works for testing:
+EMAIL_FROM={{APP_NAME}} <onboarding@resend.dev>
+
+# ── Background jobs (Inngest) — required in production ───────────────────────
+INNGEST_EVENT_KEY=
+INNGEST_SIGNING_KEY=
+
+# ── Secrets (REQUIRED in production; app fails fast if unset) ────────────────
+ENC_KEY_1=change-me-in-production-one
+ENC_KEY_2=change-me-in-production-two
+
+# ── OAuth (optional) ─────────────────────────────────────────────────────────
+# GOOGLE_CLIENT_ID=
+# GOOGLE_CLIENT_SK=

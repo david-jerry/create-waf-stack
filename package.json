@@ -1,0 +1,41 @@
+{
+  "name": "@david-jerry/create-waf-stack",
+  "version": "0.1.0",
+  "description": "Scaffold a Next.js 16 full-stack app (Drizzle/Postgres, Upstash Redis, Cloudinary, better-auth, Inngest, Resend) with a Well-Architected folder structure — like create-next-app, but for the whole stack.",
+  "type": "module",
+  "bin": {
+    "create-waf-stack": "bin/index.mjs"
+  },
+  "files": [
+    "bin",
+    "template",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "nextjs",
+    "scaffold",
+    "generator",
+    "drizzle",
+    "postgres",
+    "redis",
+    "cloudinary",
+    "better-auth",
+    "inngest",
+    "resend",
+    "template",
+    "boilerplate"
+  ],
+  "author": "Jeremiah David",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/david-jerry/create-waf-stack.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  }
+}
