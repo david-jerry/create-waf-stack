@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  # Fast check: overlay-only. No network installs — just verify the template
+  # renders, placeholders substitute, and no {{APP_*}} tokens leak through.
+  overlay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Scaffold (overlay only)
+        run: node bin/index.mjs ci-overlay --no-next --no-install
+      - name: Assert structure + no leftover tokens
+        run: |
+          set -e
+          test -f ci-overlay/src/config.ts
+          test -f ci-overlay/src/lib/auth.ts
+          test -f ci-overlay/src/db/models/auth.ts
+          test -f ci-overlay/.env.example
+          test -f ci-overlay/CLAUDE.md
+          if grep -rl "{{APP_" ci-overlay; then
+            echo "::error::Unsubstituted {{APP_*}} tokens found"; exit 1
+          fi
+          echo "Overlay OK"
+
+  # Full end-to-end: scaffold a real project (create-next-app@latest + latest
+  # libs) and build it. Proves the generated app compiles. shadcn is skipped to
+  # reduce flakiness — the template does not import shadcn components.
+  scaffold-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Scaffold demo app
+        run: node bin/index.mjs demo --pm=pnpm --no-shadcn
+      - name: Type-check + build the generated app
+        working-directory: demo
+        env:
+          # Build phase guards secrets (NEXT_PHASE), but set placeholders so
+          # nothing trips during module evaluation.
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/demo
+          RESEND_API_KEY: re_ci_placeholder
+          ENC_KEY_1: ci-enc-key-one
+          ENC_KEY_2: ci-enc-key-two
+        run: |
+          pnpm exec tsc --noEmit
+          pnpm build
