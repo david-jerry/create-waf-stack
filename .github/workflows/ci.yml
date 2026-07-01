@@ -46,7 +46,7 @@ jobs:
           node-version: 22
       - name: Scaffold demo app
         run: node bin/index.mjs demo --pm=pnpm --no-shadcn
-      - name: Type-check + build the generated app
+      - name: Build the generated app (Next type-checks during build)
         working-directory: demo
         env:
           # Build phase guards secrets (NEXT_PHASE), but set placeholders so
@@ -55,6 +55,4 @@ jobs:
           RESEND_API_KEY: re_ci_placeholder
           ENC_KEY_1: ci-enc-key-one
           ENC_KEY_2: ci-enc-key-two
-        run: |
-          pnpm exec tsc --noEmit
-          pnpm build
+        run: pnpm build

@@ -9,8 +9,7 @@ import { inngest } from "./client"
  * Slow/external work belongs here (durable retries), never inline in a request.
  */
 export const sendEmailInngest = inngest.createFunction(
-	{ id: "send-email", retries: 3 },
-	{ event: "app/email" },
+	{ id: "send-email", retries: 3, triggers: [{ event: "app/email" }] },
 	async ({ event, step }) => {
 		await step.sleep("throttle", "1s")
 		const { to, subject, html } = event.data as { to: string; subject: string; html: string }
@@ -29,8 +28,7 @@ export const sendEmailInngest = inngest.createFunction(
  *   await inngest.send({ name: "app/bulk-email", data: { subject, html, recipients: [{ email }] } })
  */
 export const sendBulkEmailInngest = inngest.createFunction(
-	{ id: "send-bulk-email", retries: 3 },
-	{ event: "app/bulk-email" },
+	{ id: "send-bulk-email", retries: 3, triggers: [{ event: "app/bulk-email" }] },
 	async ({ event }) => {
 		const { subject, html, recipients } = event.data as {
 			subject: string
