@@ -194,7 +194,7 @@ async function main() {
 	log(`  cp .env.example .env.local   ${c.dim}# then fill DATABASE_URL, UPSTASH_*, CLOUDINARY_*, RESEND_API_KEY, ENC_KEY_*${c.reset}`)
 	log(`  ${PM} run db:generate && ${PM} run db:migrate   ${c.dim}# create + apply the initial migration${c.reset}`)
 	log(`  ${PM === "npm" ? "npm run dev" : `${PM} dev`}`)
-	log(`\n${c.dim}Architecture is documented in CLAUDE.md. Example domain: src/{db/models/item.ts, db/schemas/item.ts, actions/items.ts}.${c.reset}\n`)
+	log(`\n${c.dim}Architecture is documented in CLAUDE.md. Auth tables live in src/db/models/auth.ts; see src/actions/auth.ts for the guarded server-action pattern.${c.reset}\n`)
 }
 
 main().catch((e) => die(e?.message || String(e)))
