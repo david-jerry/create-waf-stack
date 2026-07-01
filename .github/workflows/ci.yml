@@ -43,8 +43,7 @@ jobs:
           version: 10
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: pnpm
+          node-version: 22
       - name: Scaffold demo app
         run: node bin/index.mjs demo --pm=pnpm --no-shadcn
       - name: Type-check + build the generated app
